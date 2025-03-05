@@ -25,6 +25,7 @@ class Pessoa implements Humano {
   //Construtor secundário, altura não obrigatório
   Pessoa.semAltura(int idade, String nome) : this(idade, nome, null);
 
+  @override
   void apresentar() {
     if(altura != null) {
       print("Nome: $nome \nIdade: $idade \nAltura: $altura");
@@ -34,6 +35,7 @@ class Pessoa implements Humano {
     }
   }
   
+  @override
   void descreverComEnfase() {
     print("==========");
     apresentar();
@@ -50,6 +52,7 @@ class Aluno extends Pessoa{
   Aluno(super.idade, super.nome, super.altura, this.prontuario);
 
   //Polimorfismo do metodo apresentar()
+  @override
   void apresentar() {
     print("Sou aluno do instituto, me chamo $nome tenho $idade anos, $altura m e prontuario $prontuario");
   }

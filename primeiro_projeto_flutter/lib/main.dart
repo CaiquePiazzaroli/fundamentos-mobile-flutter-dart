@@ -1,5 +1,4 @@
 //Importando um módulo do dart
-import 'dart:math';
 
 //Importando um módulo qualquer externo
 //import 'package:test/test.dart;
