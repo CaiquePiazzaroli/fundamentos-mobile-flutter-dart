@@ -26,34 +26,54 @@ class MyApp extends StatelessWidget {
 }
 
 class MeuEstadoApp extends ChangeNotifier {
-  String filme = 'Click to Generate a Movie'; 
-  
+  String filme = 'Click to Generate a Movie';
+  List<String> filmesAvaliados = [];
+
   String getMovie() {
-    List<String> listaDeFilmes = ['Interestelar','Divertidamente','Titanic', 'Madrugada dos Mortos'];
-    filme= listaDeFilmes[Random().nextInt((listaDeFilmes.length-1))];
+    List<String> listaDeFilmes = [
+      'Interestelar',
+      'Divertidamente',
+      'Titanic',
+      'Madrugada dos Mortos'
+    ];
+    filme = listaDeFilmes[Random().nextInt((listaDeFilmes.length - 1))];
     print(filme);
     notifyListeners();
     return filme;
   }
-  
+
+  void setMovie() {
+    filmesAvaliados.add(filme);
+    print(filmesAvaliados);
+  }
 }
 
 class MyHomePage extends StatelessWidget {
-
-  
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MeuEstadoApp>();
-  
+    
     return Scaffold(
-      body: Column(
-        children: [
-          Text('A random AWSOME idea:'),
-          Text(appState.filme),
-          ElevatedButton(onPressed: () => {
-            appState.getMovie()
-          } , child: Text("Botao"))
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('A random AWSOME idea:'),
+            Text(appState.filme),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                    onPressed: () => {appState.getMovie()},
+                    child: Text("Proximo filme")),
+                ElevatedButton.icon(
+                    onPressed: () => {appState.setMovie()}, 
+                    label: Text("Gostei"),
+                    icon: Icon(Icons.favorite_border),)
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
