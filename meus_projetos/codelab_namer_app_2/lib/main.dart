@@ -134,7 +134,7 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MeuEstadoApp>();
     return Scaffold(
-      body: appState.filmesAvaliados[0],
+      body: appState.filmesAvaliados,
     );
   }
 
