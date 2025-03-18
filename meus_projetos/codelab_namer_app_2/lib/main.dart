@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'Aplicativo de nomes de Filmes',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 4, 57, 245)),
         ),
         home: MyHomePage(),
       ),
@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
 class MeuEstadoApp extends ChangeNotifier {
   String filme = 'Click to Generate a Movie';
   List<String> filmesAvaliados = [];
-
 
   String getMovie() {
     List<String> listaDeFilmes = [
@@ -49,40 +48,58 @@ class MeuEstadoApp extends ChangeNotifier {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+//Cria uma classe MyHomePage que é um widget do tipo Stateful
+class MyHomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MyHomePageState();
+}
+
+
+class _MyHomePageState extends State<MyHomePage> {
+  int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MeuEstadoApp>();
-    int selectedIndex = 0;
     Widget page;
 
-  
-    
+    switch (selectedIndex) {
+      case 0:
+        page = GeneratorPage();
+        break;
+      case 1:
+        page = FavoritesPage();
+        break;
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
+
     return Scaffold(
       body: Row(
         children: [
-          SafeArea(child: NavigationRail(
-            extended: false,
-            destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
-                  label: Text('Favorites'),
-                ),
-              ], 
-            selectedIndex: selectedIndex,
-            onDestinationSelected: (value) {
-                selectedIndex = value;
-              }
-
-          )),
-          Expanded(
+          SafeArea(
+              child: NavigationRail(
+                  extended: false,
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text('Home'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.favorite),
+                      label: Text('Favorites'),
+                    ),
+                  ],
+                  selectedIndex: selectedIndex,
+                  onDestinationSelected: (value) {
+                    setState(() {
+                      selectedIndex = value;
+                    });
+                  })),
+          Expanded( //Deixa o widget grande na tela
             child: Container(
+              color: Theme.of(context).colorScheme.primaryContainer,
               child: Center(
-                child: FavoritesPage(appState: appState,),
+                child: page,
               ),
             ),
           ),
@@ -93,15 +110,10 @@ class MyHomePage extends StatelessWidget {
 }
 
 class GeneratorPage extends StatelessWidget {
-  const GeneratorPage({
-    super.key,
-    required this.appState,
-  });
-
-  final MeuEstadoApp appState;
-
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MeuEstadoApp>();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -114,9 +126,10 @@ class GeneratorPage extends StatelessWidget {
                 onPressed: () => {appState.getMovie()},
                 child: Text("Proximo filme")),
             ElevatedButton.icon(
-                onPressed: () => {appState.setMovie()}, 
-                label: Text("Gostei"),
-                icon: Icon(Icons.favorite_border),)
+              onPressed: () => {appState.setMovie()},
+              label: Text("Gostei"),
+              icon: Icon(Icons.favorite_border),
+            )
           ],
         )
       ],
@@ -124,18 +137,28 @@ class GeneratorPage extends StatelessWidget {
   }
 }
 
-
 class FavoritesPage extends StatelessWidget {
-
-
-  
-
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MeuEstadoApp>();
-    return Scaffold(
-      body: appState.filmesAvaliados,
+
+    //Quando a lista é vazia
+    if(appState.filmesAvaliados.isEmpty) {
+      return Text("Nenhum filme avaliado");
+    }
+
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(9.0),
+          child: Text("Listas de filmes avaliados por você:"),
+        ),
+        for(var filme in appState.filmesAvaliados) 
+          ListTile(
+            leading: Icon(Icons.favorite),
+            title: Text(filme.toUpperCase()),
+          ),
+      ],
     );
   }
-
 }
