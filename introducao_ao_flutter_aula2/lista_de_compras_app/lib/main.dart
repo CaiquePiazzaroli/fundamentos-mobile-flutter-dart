@@ -6,6 +6,8 @@ void main() {
 
 //My app que será chamado  na main e herda de statelesswidget
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   //Metodo obrigatório para implementar o StatelessWidget e adiciona novas folhas de widgets
   //BuildContext é usada pelo flutter para saber mais detalhes sobre o widget quando a arvore está sendo percorrida
   @override
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
           ),
         ), //Barra superiror. Obs Widget Center centraliza e Text cria um texto
         body: Center(
-          child: Text("Tamanho da tela: ${alturaTela} x ${comprimentoTela}"),
+          child: Text("Tamanho da tela: $alturaTela x $comprimentoTela"),
         ), //Corpo o widget
       ),
     );
@@ -44,6 +46,8 @@ class MyApp extends StatelessWidget {
 
 //Exemplo com children - Alterar na main
 class MyOtherApp extends StatelessWidget {
+  const MyOtherApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -64,6 +68,8 @@ class MyAppListView extends StatelessWidget {
   //Cria uma lista com 100 inteiros
   final listInt = List<int>.generate(100, (i) => i);
 
+  MyAppListView({super.key});
+
   @override
   Widget build(Object context) {
     return MaterialApp(
@@ -71,7 +77,7 @@ class MyAppListView extends StatelessWidget {
         // O construtor nomeado 'builder'cria uma lista de widgets e pega a listInt como parametros
         body: ListView.builder(
           //ListView.builder cria os itens sob demanda, na medida em que é necessário
-          itemCount: listInt.length, //Define quantos items terá essa lista
+          itemCount: listInt.length, //Define quantos itens terá essa lista
           itemBuilder: (context, index) {
             return Text("${listInt[index]}");
           }, //Retorna os itens da lista
@@ -83,6 +89,8 @@ class MyAppListView extends StatelessWidget {
 
 //Exemplo com Container
 class MyAppContainer extends StatelessWidget {
+  const MyAppContainer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -109,6 +117,8 @@ class MyAppContainer extends StatelessWidget {
 }
 
 class MyAppStackPositioned extends StatelessWidget {
+  const MyAppStackPositioned({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -136,8 +146,8 @@ class MyAppStackPositioned extends StatelessWidget {
             ),
             // Quadrado vermelho (ao lado do azul)
             Positioned(
-              top: 40,
-              left: 70, // Agora realmente fica ao lado do azul
+              top: 50,
+              left: 40, // Agora realmente fica ao lado do azul
               child: Container(
                 width: 60,
                 height: 60,
