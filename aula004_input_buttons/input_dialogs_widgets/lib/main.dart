@@ -212,6 +212,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         setState(() {
           dropdownValue = value!;
         });
+        print(value);
       },
       items:
           list.map<DropdownMenuItem<String>>((String value) {
