@@ -26,8 +26,8 @@ class FormExample extends StatefulWidget {
 
 class _FormExampleState extends State<FormExample> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-   final TextEditingController _textController = TextEditingController(); // Controlador para pegar o valor do campo
-   final TextEditingController _passwordController = TextEditingController(); // Controlador para pegar o valor do campo de password
+  final TextEditingController _textController = TextEditingController(); // Controlador para pegar o valor do campo
+  final TextEditingController _passwordController = TextEditingController(); // Controlador para pegar o valor do campo de password
 
   @override
   Widget build(BuildContext context) {

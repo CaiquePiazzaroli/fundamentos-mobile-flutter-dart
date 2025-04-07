@@ -198,6 +198,7 @@ class FavoritesPage extends StatelessWidget {
           child: Text('You have '
               '${appState.favorites.length} favorites:'),
         ),
+        
         for (var pair in appState.favorites)
           ListTile(
             leading: Icon(Icons.favorite),

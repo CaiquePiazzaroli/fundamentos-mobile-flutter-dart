@@ -19,3 +19,5 @@ void main() {
   print(num is String); //False
   print(num is int); //True
   //print(num as String); // type 'int' is not a subtype of type 'String' in type cast
+
+}
