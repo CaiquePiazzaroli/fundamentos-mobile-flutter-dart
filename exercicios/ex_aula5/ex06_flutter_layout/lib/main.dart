@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
-// aula 6
+// aula 5
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
